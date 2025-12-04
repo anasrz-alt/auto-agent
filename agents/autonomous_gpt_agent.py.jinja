@@ -1,0 +1,15 @@
+from autonomous_gpt import Agent
+
+agent = Agent(
+    name="{{ agent_name }}",
+    tools=[
+        {% for tool in tools %}
+        {"name": "{{ tool.name }}", "func": {{ tool.func }}, "description": "{{ tool.description }}"}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ],
+    memory_type="buffer"
+)
+
+if __name__ == "__main__":
+    result = agent.run("{{ test_prompt }}")
+    print("🤖 Result:", result)

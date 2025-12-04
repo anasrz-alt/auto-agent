@@ -1,0 +1,92 @@
+"""
+Auto-generated LangChain Agent
+
+This template uses the new `create_agent` API which builds a LangGraph-based agent runtime.
+
+Key references:
+- Agents Overview: https://python.langchain.com/docs/agents/
+- create_agent Reference: https://reference.langchain.com/python/langchain/agents/#langchain.agents.create_agent
+- Tools: https://python.langchain.com/docs/tools/
+- Models: https://python.langchain.com/docs/models/
+"""
+
+from typing import Optional, List
+from langchain.agents import create_agent
+from langchain.tools import tool
+from langchain_core.messages import HumanMessage
+
+# ---------------------------
+# 1. Model Configuration
+# ---------------------------
+
+"""
+The model can be:
+- A model identifier string (e.g., "gpt-5", "gpt-4o-mini", "ollama:llama3") 
+- Or a provider-specific model instance, e.g.:
+
+from langchain_openai import ChatOpenAI
+model = ChatOpenAI(model="gpt-5", temperature=0.2)
+
+This template uses a string and lets LangChain infer the provider.
+"""
+
+MODEL = "{{ model_name }}"  # e.g. "gpt-5"
+
+
+# ---------------------------
+# 2. Tool Definitions
+# ---------------------------
+
+"""
+Tools extend the agent's capabilities.
+They must be decorated with @tool, and must return a string. The tools must not be mock but should be doing actual runs.
+
+
+Example:
+@tool
+def get_weather(city: str) -> str: 
+    '''Get weather for a city.'''
+    return f"It is always sunny in {city}!"
+
+The list below is rendered dynamically.
+"""
+
+{% for tool in tools %}
+@tool
+def {{ tool.name }}({{ tool.signature }}):
+    """{{ tool.description }}"""
+    return {{ tool.func_call }}
+{% endfor %}
+
+TOOLS = [
+    {% for tool in tools %}{{ tool.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+]
+
+
+# ---------------------------
+# 3. Create Agent
+# ---------------------------
+
+agent = create_agent(
+    model=MODEL,
+    tools=TOOLS,
+    system_prompt="{{ system_prompt | default('You are a helpful and reliable agent.') }}"
+)
+
+
+# ---------------------------
+# 4. Test Agent Execution
+# ---------------------------
+
+if __name__ == "__main__":
+    print(f"\n--- Running Agent: {{ agent_name }} (Model: {MODEL}) ---")
+    print("Description: {{ description }}")
+    print("----\n")
+
+    try:
+        response = agent.invoke(
+            {"messages": [HumanMessage(content="{{ test_prompt }}")]}
+        )
+        print("Final Output:\n", response)
+    except Exception as e:
+        print(f"Agent Execution Failed: {e}")

@@ -1,0 +1,14 @@
+from llama_index import GPTAgent
+
+agent = GPTAgent(
+    name="{{ agent_name }}",
+    tools=[
+        {% for tool in tools %}
+        {"name": "{{ tool.name }}", "func": {{ tool.func }}, "description": "{{ tool.description }}"}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+)
+
+if __name__ == "__main__":
+    result = agent.query("{{ test_prompt }}")
+    print("🤖 Result:", result)

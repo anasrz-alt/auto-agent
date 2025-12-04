@@ -1,0 +1,14 @@
+from dify import DifyAgent
+
+agent = DifyAgent(
+    name="{{ agent_name }}",
+    tools=[
+        {% for tool in tools %}
+        {"name": "{{ tool.name }}", "func": {{ tool.func }}, "description": "{{ tool.description }}"}{% if not loop.last %},{% endif %}
+        {% endfor %}
+    ]
+)
+
+if __name__ == "__main__":
+    result = agent.ask("{{ test_prompt }}")
+    print("🤖 Result:", result)
