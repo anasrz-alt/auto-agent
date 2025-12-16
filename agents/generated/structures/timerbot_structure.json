@@ -1,0 +1,71 @@
+{
+    "agent_name": "TimerBot",
+    "description": "TimerBot is an intelligent agent designed to provide the current time for any city around the world. It utilizes various APIs to determine the local time based on user input, ensuring accurate and timely responses.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "text",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "TimeZoneAPI",
+            "description": "A service that provides time zone information for any city around the world, allowing TimerBot to determine the local time based on the city name or coordinates.",
+            "type": "API"
+        },
+        {
+            "name": "GeolocationAPI",
+            "description": "An API that retrieves geographical information based on user input, which helps TimerBot to convert city names into geographical coordinates for accurate time retrieval.",
+            "type": "API"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that allows TimerBot to fetch information from the web, which can be used to verify time zone data or provide additional context about the location.",
+            "type": "Web"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

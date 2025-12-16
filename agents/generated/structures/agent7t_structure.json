@@ -1,0 +1,142 @@
+{
+    "agent_name": "Agent7T",
+    "description": "A PythonAutomator Agent that autonomously executes tasks by integrating Python for custom scripts, complex computations, data manipulation, and automation via libraries/frameworks\u2014enabling data analysis, machine learning deployment, task automation, and precise handling of technical/analytical challenges in flexible, tailored solutions.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "API responses",
+            "files"
+        ],
+        "preprocessing": [
+            "data cleaning",
+            "format conversion"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "file system"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python code snippets and scripts for various tasks.",
+            "type": "Execution"
+        },
+        {
+            "name": "Pandas",
+            "description": "Data manipulation and analysis library, providing data structures and functions to work with structured data.",
+            "type": "Data Analysis"
+        },
+        {
+            "name": "NumPy",
+            "description": "Library for numerical computations in Python, offering support for arrays and matrices, along with a collection of mathematical functions.",
+            "type": "Mathematics"
+        },
+        {
+            "name": "Matplotlib",
+            "description": "Plotting library for creating static, animated, and interactive visualizations in Python.",
+            "type": "Visualization"
+        },
+        {
+            "name": "Scikit-learn",
+            "description": "Machine learning library for Python, providing simple and efficient tools for data mining and data analysis.",
+            "type": "Machine Learning"
+        },
+        {
+            "name": "Requests",
+            "description": "HTTP library for making requests to APIs and web services.",
+            "type": "Network"
+        },
+        {
+            "name": "BeautifulSoup",
+            "description": "Library for parsing HTML and XML documents, useful for web scraping.",
+            "type": "Web Scraping"
+        },
+        {
+            "name": "Selenium",
+            "description": "Web automation tool that allows for automated testing of web applications and scraping dynamic content.",
+            "type": "Web Automation"
+        },
+        {
+            "name": "OpenCV",
+            "description": "Computer vision library for image processing and analysis.",
+            "type": "Vision"
+        },
+        {
+            "name": "TensorFlow",
+            "description": "Open-source library for machine learning and deep learning applications.",
+            "type": "Deep Learning"
+        },
+        {
+            "name": "PyTorch",
+            "description": "Deep learning framework that provides a flexible platform for building neural networks.",
+            "type": "Deep Learning"
+        },
+        {
+            "name": "Flask",
+            "description": "Micro web framework for Python, used to build web applications and APIs.",
+            "type": "Web Framework"
+        },
+        {
+            "name": "Django",
+            "description": "High-level Python web framework that encourages rapid development and clean, pragmatic design.",
+            "type": "Web Framework"
+        },
+        {
+            "name": "SQLAlchemy",
+            "description": "SQL toolkit and Object-Relational Mapping (ORM) system for Python.",
+            "type": "Database"
+        },
+        {
+            "name": "Jupyter",
+            "description": "Web application for creating and sharing documents that contain live code, equations, visualizations, and narrative text.",
+            "type": "Notebook"
+        },
+        {
+            "name": "GitPython",
+            "description": "Python library used to interact with Git repositories.",
+            "type": "Version Control"
+        }
+    ],
+    "memory": {
+        "type": "Episodic",
+        "scope": "LongTerm",
+        "storage": "ChromaDB"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "execution logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "event-driven",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

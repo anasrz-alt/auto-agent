@@ -1,0 +1,114 @@
+{
+    "agent_name": "fourt",
+    "description": "A VideoAnalyzer Agent that autonomously processes and acts on data inputs using video recognition tools to interpret content, identify objects/actions/patterns; combined with web browsers for real-time internet retrieval\u2014enabling surveillance, content moderation, automated tagging, insight extraction from streams, and correlation with online resources in dynamic workflows.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Orchestrator"
+    },
+    "perception": {
+        "inputs": [
+            "video",
+            "audio",
+            "text"
+        ],
+        "preprocessing": [
+            "VideoRecognitionAPI",
+            "ObjectDetectionModel",
+            "ActionRecognitionModel"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "API",
+            "console",
+            "web"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "VideoRecognitionAPI",
+            "description": "An API that processes video inputs to recognize and categorize visual content.",
+            "type": "Vision"
+        },
+        {
+            "name": "ObjectDetectionModel",
+            "description": "A model that identifies and locates objects within video frames.",
+            "type": "Vision"
+        },
+        {
+            "name": "ActionRecognitionModel",
+            "description": "A model designed to analyze and interpret actions occurring within video content.",
+            "type": "Vision"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that allows the agent to access and retrieve real-time information from the internet.",
+            "type": "Search"
+        },
+        {
+            "name": "DataStorage",
+            "description": "A system for storing processed data, insights, and metadata for future reference.",
+            "type": "FileIO"
+        },
+        {
+            "name": "RealTimeStreamingAPI",
+            "description": "An API that facilitates the processing of live video streams for immediate analysis.",
+            "type": "Streaming"
+        },
+        {
+            "name": "ContentModerationTool",
+            "description": "A tool that helps in filtering and moderating content based on predefined guidelines.",
+            "type": "Moderation"
+        },
+        {
+            "name": "AutomatedTaggingSystem",
+            "description": "A system that automatically generates tags for video content based on recognized elements.",
+            "type": "Tagging"
+        },
+        {
+            "name": "InsightExtractionTool",
+            "description": "A tool that extracts meaningful insights from video content and associated data.",
+            "type": "Analysis"
+        },
+        {
+            "name": "CorrelationEngine",
+            "description": "An engine that correlates video data with online resources for enhanced context and understanding.",
+            "type": "Analysis"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "Redis"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "logs",
+            "environment states"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "event-driven",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

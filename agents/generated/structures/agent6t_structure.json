@@ -1,0 +1,102 @@
+{
+    "agent_name": "Agent6T",
+    "description": "An AudioFileSync Agent that autonomously performs tasks by leveraging a file interface to access, read, and manipulate various file types like documents or datasets, combined with speech-to-text tools to transcribe spoken audio into text\u2014enabling efficient data handling, organization, automated note-taking, voice command processing, and seamless conversion of audio inputs into actionable data within an auto-agent framework.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Orchestrator"
+    },
+    "perception": {
+        "inputs": [
+            "audio",
+            "text",
+            "files"
+        ],
+        "preprocessing": [
+            "speech-to-text",
+            "file parsing"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "file system"
+        ]
+    },
+    "communication": {
+        "input_format": "voice",
+        "output_format": "text",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "FileIO",
+            "description": "Handles reading and writing various file types, allowing the agent to access and manipulate documents and datasets.",
+            "type": "FileIO"
+        },
+        {
+            "name": "SpeechToText",
+            "description": "Transcribes spoken audio into text, enabling the agent to convert voice commands and audio notes into actionable text data.",
+            "type": "Audio"
+        },
+        {
+            "name": "TextProcessor",
+            "description": "Processes and analyzes text data, allowing the agent to extract insights, summarize content, and organize information efficiently.",
+            "type": "Text"
+        },
+        {
+            "name": "AudioFileHandler",
+            "description": "Manages audio file operations, including playback, recording, and format conversion to facilitate audio processing tasks.",
+            "type": "Audio"
+        },
+        {
+            "name": "DataOrganizer",
+            "description": "Organizes and categorizes data extracted from files and audio, ensuring efficient retrieval and management of information.",
+            "type": "Data"
+        },
+        {
+            "name": "VoiceCommandProcessor",
+            "description": "Interprets and executes commands given through voice input, allowing for hands-free interaction with the system.",
+            "type": "Audio"
+        },
+        {
+            "name": "NoteTaker",
+            "description": "Automatically takes notes based on transcribed audio and user inputs, ensuring that important information is captured and organized.",
+            "type": "Text"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python scripts and code snippets, enabling the agent to perform complex calculations and data manipulations.",
+            "type": "Execution"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

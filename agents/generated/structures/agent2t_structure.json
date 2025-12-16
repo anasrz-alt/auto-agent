@@ -1,0 +1,96 @@
+{
+    "agent_name": "Agent2T",
+    "description": "An DataInsight Agent that autonomously executes tasks and processes information using tools like Excel for advanced data manipulation, analysis, and visualization; calculators for precise computations; and PDF tools for document extraction\u2014facilitating financial modeling, data organization, document analysis, and delivery of actionable insights across diverse applications.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "documents",
+            "spreadsheets"
+        ],
+        "preprocessing": [
+            "OCR",
+            "data parsing"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "ExcelTool",
+            "description": "A tool for advanced data manipulation, analysis, and visualization using Excel spreadsheets, allowing for complex calculations and data organization.",
+            "type": "FileIO"
+        },
+        {
+            "name": "CalculatorTool",
+            "description": "A precise computation tool that performs mathematical calculations and provides numerical results for various inputs.",
+            "type": "Calculator"
+        },
+        {
+            "name": "PDFExtractorTool",
+            "description": "A tool for extracting text and data from PDF documents, enabling analysis and processing of financial reports and other documents.",
+            "type": "FileIO"
+        },
+        {
+            "name": "DataVisualizationTool",
+            "description": "A tool for creating visual representations of data, helping to communicate insights effectively through charts and graphs.",
+            "type": "Visualization"
+        },
+        {
+            "name": "DataAnalysisTool",
+            "description": "A tool designed for analyzing datasets to uncover trends, patterns, and insights, facilitating informed decision-making.",
+            "type": "Analysis"
+        },
+        {
+            "name": "FinancialModelingTool",
+            "description": "A specialized tool for building financial models, allowing for forecasting, budgeting, and scenario analysis.",
+            "type": "Modeling"
+        },
+        {
+            "name": "DataOrganizationTool",
+            "description": "A tool for structuring and organizing data efficiently, ensuring that information is easily accessible and manageable.",
+            "type": "Organization"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

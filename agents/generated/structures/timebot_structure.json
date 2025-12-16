@@ -1,0 +1,76 @@
+{
+    "agent_name": "TimeBot",
+    "description": "TimeBot is an intelligent agent designed to provide the current time in any city around the world. It utilizes various APIs to fetch accurate time data based on user queries, ensuring that users can easily find the time they need, regardless of their location.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "text",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "WorldTimeAPI",
+            "description": "An API that provides current time information for cities around the world based on their geographical location.",
+            "type": "API"
+        },
+        {
+            "name": "TimezoneDatabaseAPI",
+            "description": "An API that offers timezone information, allowing the agent to convert local times to UTC and vice versa.",
+            "type": "API"
+        },
+        {
+            "name": "GeolocationAPI",
+            "description": "An API that retrieves the geographical coordinates of a city based on its name, enabling accurate time retrieval.",
+            "type": "API"
+        },
+        {
+            "name": "SearchTool",
+            "description": "A tool that allows the agent to perform web searches to find additional information about cities and their time zones.",
+            "type": "Search"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

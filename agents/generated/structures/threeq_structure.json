@@ -1,0 +1,88 @@
+{
+    "agent_name": "threeq",
+    "description": "The agent should resolve multimedia and historical trivia queries by leveraging web searches and page browsing to access film synopses, YouTube video metadata/transcripts, or Wikipedia archives for precise details (e.g., object colors from movie plots, performance metrics from testing videos, or date extractions from linked images). It should parse and format outputs strictly per instructions (e.g., comma-separated alphabetical lists, exact CFM pairs, or isolated integers), prioritizing verified sources from the specified timeframe like August 2023.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "web pages",
+            "YouTube metadata",
+            "Wikipedia archives"
+        ],
+        "preprocessing": [
+            "text extraction",
+            "data formatting"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "web"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "SearchTool",
+            "description": "A tool that performs web searches to gather information from various online sources, focusing on multimedia and historical trivia.",
+            "type": "Search"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that allows the agent to browse web pages for detailed information, including film synopses and other relevant data.",
+            "type": "Web"
+        },
+        {
+            "name": "YouTubeAPI",
+            "description": "An API that provides access to YouTube video metadata and transcripts, enabling the agent to extract relevant details from videos.",
+            "type": "Video"
+        },
+        {
+            "name": "WikipediaAPI",
+            "description": "An API that allows the agent to retrieve and parse information from Wikipedia articles, useful for historical trivia and detailed queries.",
+            "type": "Knowledge"
+        },
+        {
+            "name": "TextParser",
+            "description": "A tool for parsing and formatting text outputs according to specific instructions, ensuring data is presented in the required formats.",
+            "type": "Text"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "event-driven",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

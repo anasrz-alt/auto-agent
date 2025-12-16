@@ -1,0 +1,71 @@
+{
+    "agent_name": "BOTTimer",
+    "description": "BOTTimer is an intelligent agent designed to provide the current time in various cities around the world. It utilizes geolocation data to determine the user's location and then fetches the corresponding time using timezone information. The agent aims to assist users in quickly finding out the time in different regions, making it ideal for travelers, remote workers, and anyone needing to coordinate across time zones.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "text",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "TimeZoneAPI",
+            "description": "An API that provides timezone information based on geographical locations. It helps in retrieving the current time for a specified city or region.",
+            "type": "API"
+        },
+        {
+            "name": "GeolocationAPI",
+            "description": "This API allows the agent to determine the user's current geographical location based on IP address or other location data, essential for providing accurate time information.",
+            "type": "API"
+        },
+        {
+            "name": "DateTimeCalculator",
+            "description": "A tool that performs calculations related to time zones, such as converting times between different zones and calculating time differences.",
+            "type": "Calculator"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "event-driven",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

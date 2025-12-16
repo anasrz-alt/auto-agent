@@ -1,0 +1,94 @@
+{
+    "agent_name": "oneq",
+    "description": "The agent is designed to query web and PDF sources for targeted extractions, analyze attached Excel files for counts and comparisons, cross-verify multi-paper overlaps or census splits with calculations, and deliver formatted results adhering to specified units, orders, and exclusions.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "PDF",
+            "Excel",
+            "web"
+        ],
+        "preprocessing": [
+            "OCR",
+            "data parsing",
+            "text extraction"
+        ]
+    },
+    "reasoning": {
+        "strategy": "hybrid",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "structured JSON"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "SearchTool",
+            "description": "A tool for querying web sources to obtain relevant information based on user queries.",
+            "type": "Search"
+        },
+        {
+            "name": "PDFExtractor",
+            "description": "A tool that extracts text and data from PDF documents for analysis and extraction tasks.",
+            "type": "FileIO"
+        },
+        {
+            "name": "ExcelAnalyzer",
+            "description": "A tool for analyzing Excel files, providing functionalities for counts, comparisons, and data extraction.",
+            "type": "FileIO"
+        },
+        {
+            "name": "DataComparator",
+            "description": "A tool for comparing datasets, allowing the agent to identify overlaps and differences in data.",
+            "type": "Calculator"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that enables the agent to browse the web for real-time information retrieval.",
+            "type": "Search"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "A tool that executes Python code for complex calculations and data processing tasks.",
+            "type": "Calculator"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

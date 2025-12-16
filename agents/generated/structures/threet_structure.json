@@ -1,0 +1,91 @@
+{
+    "agent_name": "threet",
+    "description": "A VisionSearch Agent that autonomously performs tasks by processing diverse data with image recognition tools to identify objects, patterns, or text; OCR for extracting text from images or documents; and search engines/web browsers for real-time online information\u2014supporting visual search, automated tagging, content analysis, and comprehensive research with accurate results.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "image",
+            "text"
+        ],
+        "preprocessing": [
+            "ImageRecognitionTool",
+            "OCRTool"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "web"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "ImageRecognitionTool",
+            "description": "A tool that utilizes advanced image recognition algorithms to identify objects, patterns, and features in images, enabling visual search capabilities.",
+            "type": "Vision"
+        },
+        {
+            "name": "OCRTool",
+            "description": "Optical Character Recognition tool that extracts text from images or documents, converting visual information into editable and searchable text.",
+            "type": "Text Extraction"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that allows the agent to navigate the web, retrieve information, and interact with web pages in real-time for comprehensive research.",
+            "type": "Web Interaction"
+        },
+        {
+            "name": "SearchEngine",
+            "description": "A search engine tool that enables the agent to perform queries and retrieve relevant information from the internet based on user input or identified needs.",
+            "type": "Search"
+        },
+        {
+            "name": "DataAnalysisTool",
+            "description": "A tool that processes and analyzes data to extract insights, trends, and patterns, supporting informed decision-making.",
+            "type": "Data Processing"
+        },
+        {
+            "name": "AutomatedTaggingTool",
+            "description": "A tool that automatically tags content based on recognized patterns and identified objects, facilitating organization and retrieval.",
+            "type": "Tagging"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

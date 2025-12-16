@@ -1,0 +1,115 @@
+{
+    "agent_name": "Agent4T",
+    "description": "A VideoAnalyzer Agent that autonomously processes and acts on data inputs using video recognition tools to interpret content, identify objects/actions/patterns; combined with web browsers for real-time internet retrieval\u2014enabling surveillance, content moderation, automated tagging, insight extraction from streams, and correlation with online resources in dynamic workflows.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Orchestrator"
+    },
+    "perception": {
+        "inputs": [
+            "video",
+            "audio",
+            "text"
+        ],
+        "preprocessing": [
+            "VideoRecognitionAPI",
+            "ObjectDetectionTool",
+            "ActionRecognitionTool",
+            "PatternRecognitionTool"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "API",
+            "web",
+            "database"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "VideoRecognitionAPI",
+            "description": "An API that processes video input to recognize and interpret visual content.",
+            "type": "Vision"
+        },
+        {
+            "name": "ObjectDetectionTool",
+            "description": "A tool that identifies and classifies objects within video frames.",
+            "type": "Vision"
+        },
+        {
+            "name": "ActionRecognitionTool",
+            "description": "A tool that detects and interprets actions occurring within video content.",
+            "type": "Vision"
+        },
+        {
+            "name": "PatternRecognitionTool",
+            "description": "A tool that analyzes video streams for recurring patterns and behaviors.",
+            "type": "Vision"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that retrieves real-time information from the internet to support decision-making.",
+            "type": "Search"
+        },
+        {
+            "name": "DataAnalysisTool",
+            "description": "A tool that processes and analyzes data extracted from video and web sources.",
+            "type": "Data"
+        },
+        {
+            "name": "ContentModerationAPI",
+            "description": "An API that ensures video content adheres to community guidelines and standards.",
+            "type": "Moderation"
+        },
+        {
+            "name": "AutomatedTaggingSystem",
+            "description": "A system that automatically tags video content based on recognized objects and actions.",
+            "type": "Tagging"
+        },
+        {
+            "name": "InsightExtractionTool",
+            "description": "A tool that extracts meaningful insights from analyzed video content and related data.",
+            "type": "Analysis"
+        },
+        {
+            "name": "RealTimeStreamingAPI",
+            "description": "An API that allows the agent to process and analyze live video streams.",
+            "type": "Streaming"
+        }
+    ],
+    "memory": {
+        "type": "VectorStore",
+        "scope": "LongTerm",
+        "storage": "ChromaDB"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "logs",
+            "environment states"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "event-driven",
+        "coordination": "concurrent"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

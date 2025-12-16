@@ -1,0 +1,90 @@
+{
+    "agent_name": "BotTest",
+    "description": "The BotTest agent is designed to ingest file-based data (like Excel and PDB files) and web-sourced information (such as Wikipedia historical estimates and scientific papers). It executes Python/Biopython code for parsing and computations, including calculating distances, velocities, and percentages. The agent filters and aggregates data based on specified criteria (e.g., beak lengths and food categories) and outputs formatted numerical results with the required precision and units.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "file_data",
+            "web_data"
+        ],
+        "preprocessing": [
+            "data_cleaning",
+            "data_formatting"
+        ]
+    },
+    "reasoning": {
+        "strategy": "hybrid",
+        "knowledge_base": "embedding store",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "FileIO",
+            "description": "Handles reading and writing of file-based data, including Excel and PDB formats.",
+            "type": "FileIO"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "Facilitates browsing and downloading web-sourced information from various online resources.",
+            "type": "Search"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python and Biopython code for data parsing and computational tasks.",
+            "type": "Calculator"
+        },
+        {
+            "name": "DataParser",
+            "description": "Parses and structures data from various formats for further analysis.",
+            "type": "Data Processing"
+        },
+        {
+            "name": "DataAggregator",
+            "description": "Aggregates and filters data based on specified criteria, such as beak lengths and food categories.",
+            "type": "Data Processing"
+        },
+        {
+            "name": "ResultFormatter",
+            "description": "Formats numerical results with the required precision and units for output.",
+            "type": "Formatter"
+        }
+    ],
+    "memory": {
+        "type": "Episodic",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

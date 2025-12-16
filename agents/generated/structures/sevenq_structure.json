@@ -1,0 +1,62 @@
+{
+    "agent_name": "sevenq",
+    "description": "The sevenq agent is designed to execute and analyze Python code provided in an attached file. It runs the code in a secure environment, determines the final numeric output, and handles any potential dependencies. The agent parses the code to extract the last computed or printed numerical value and returns it exactly as produced, ensuring no modifications or assumptions beyond the code\u2019s logic.",
+    "framework_target": "langchain",
+    "architecture": "Sequential",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "file"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "none",
+        "planner": "none"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console"
+        ]
+    },
+    "communication": {
+        "input_format": "file upload",
+        "output_format": "text",
+        "multi_agent_protocol": "none"
+    },
+    "tools": [
+        {
+            "name": "FileIO",
+            "description": "This tool allows the agent to read files containing Python code, enabling it to access and analyze the provided code for execution.",
+            "type": "FileIO"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "This tool executes Python code in a secure environment, ensuring that the code runs safely and returns the output without modification.",
+            "type": "Execution"
+        }
+    ],
+    "memory": {
+        "type": "ShortTerm",
+        "scope": "Local",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "none",
+        "data_sources": []
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

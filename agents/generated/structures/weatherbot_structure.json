@@ -1,0 +1,71 @@
+{
+    "agent_name": "WeatherBot",
+    "description": "WeatherBot is an intelligent agent designed to fetch and provide weather information for specified cities. It utilizes various tools to gather accurate weather data and deliver it in a user-friendly format, ensuring users receive timely and relevant weather updates.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "API",
+            "console"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "text",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "WeatherAPI",
+            "description": "A RESTful API that provides weather data for various locations worldwide, including current conditions, forecasts, and historical data.",
+            "type": "API"
+        },
+        {
+            "name": "SearchTool",
+            "description": "A tool that enables the agent to perform web searches to gather supplementary information about weather conditions or related topics.",
+            "type": "Search"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that allows the agent to navigate the web to retrieve information from various sources, ensuring the most accurate and up-to-date weather data.",
+            "type": "Web"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

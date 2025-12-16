@@ -1,0 +1,71 @@
+{
+    "agent_name": "TBot",
+    "description": "TBot is an intelligent agent designed to check the current time in various cities around the world. It utilizes external APIs and tools to fetch accurate time information based on user queries.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "text",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "TimeZoneAPI",
+            "description": "A tool that provides current time and timezone information for cities around the world.",
+            "type": "API"
+        },
+        {
+            "name": "SearchTool",
+            "description": "A tool that allows TBot to perform web searches to gather additional information or verify details related to time queries.",
+            "type": "Search"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that enables TBot to browse the web for real-time information and updates about time zones and local times.",
+            "type": "Web"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

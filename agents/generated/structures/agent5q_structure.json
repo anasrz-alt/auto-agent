@@ -1,0 +1,85 @@
+{
+    "agent_name": "Agent5Q",
+    "description": "Agent5Q is designed to ingest file-based data such as audio MP3s for transcription and Boggle grids for word validation. It can browse web-sourced dictionaries, execute Python code for puzzle solving, and process audio for extracting information. The agent filters and validates data against specific dictionaries and outputs results in a strictly formatted manner.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "file-based data",
+            "web data"
+        ],
+        "preprocessing": [
+            "SpeechToText",
+            "FileIO"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "FileIO",
+            "description": "Handles file input/output operations, allowing the agent to read and write data from local files.",
+            "type": "FileIO"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "Enables the agent to browse the web and retrieve data from online sources, such as dictionaries or text files.",
+            "type": "Search"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python code for tasks such as solving puzzles or processing data.",
+            "type": "Calculator"
+        },
+        {
+            "name": "SpeechToText",
+            "description": "Converts audio input into text format for further processing and analysis.",
+            "type": "Audio"
+        },
+        {
+            "name": "DictionaryValidator",
+            "description": "Validates words against specified dictionaries to ensure accuracy and adherence to rules (e.g., excluding proper nouns).",
+            "type": "Validator"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "execution logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "state machine",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

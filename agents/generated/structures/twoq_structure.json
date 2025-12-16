@@ -1,0 +1,91 @@
+{
+    "agent_name": "twoq",
+    "description": "The twoq agent is designed to ingest file-based data (such as Excel files and PDB files) and web-sourced information (including Wikipedia historical estimates and scientific papers) through browsing or downloads. It executes Python and Biopython code for parsing and computations, such as calculating distances, velocities, and percentages. The agent filters and aggregates data based on specified criteria (like beak lengths and food categories) and outputs formatted numerical results with the required precision and units.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "file-based data",
+            "web-sourced information"
+        ],
+        "preprocessing": [
+            "data extraction",
+            "format conversion"
+        ]
+    },
+    "reasoning": {
+        "strategy": "hybrid",
+        "knowledge_base": "embedding store",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "formatted report"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "FileIO",
+            "description": "Handles reading and writing of file-based data formats, including Excel and PDB files.",
+            "type": "FileIO"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "Facilitates browsing and downloading of web-sourced information, such as articles and papers.",
+            "type": "Search"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python and Biopython code for data parsing and computations.",
+            "type": "Calculator"
+        },
+        {
+            "name": "DataParser",
+            "description": "Parses and processes data from various formats to prepare it for analysis.",
+            "type": "Data Processing"
+        },
+        {
+            "name": "DataAggregator",
+            "description": "Aggregates and filters data based on specified criteria to produce meaningful summaries.",
+            "type": "Data Aggregation"
+        },
+        {
+            "name": "ResultFormatter",
+            "description": "Formats numerical results with the required precision and units for output.",
+            "type": "Output Formatting"
+        }
+    ],
+    "memory": {
+        "type": "Episodic",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "execution logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

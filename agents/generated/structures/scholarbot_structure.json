@@ -1,0 +1,76 @@
+{
+    "agent_name": "ScholarBot",
+    "description": "ScholarBot is designed to assist users in extracting the number of publications associated with a specific professor's name and their affiliated university. It utilizes various tools to search academic databases and web resources to provide accurate and up-to-date information.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "text",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "SearchTool",
+            "description": "A tool that performs web searches to gather information about the professor and their publications.",
+            "type": "Search"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that allows the agent to browse the web for academic articles and profiles related to the professor.",
+            "type": "Web"
+        },
+        {
+            "name": "DatabaseQueryTool",
+            "description": "A tool that queries academic databases to retrieve publication counts and other relevant metrics.",
+            "type": "Database"
+        },
+        {
+            "name": "APIClient",
+            "description": "A tool that interacts with external APIs to fetch publication data and statistics for the specified professor.",
+            "type": "API"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

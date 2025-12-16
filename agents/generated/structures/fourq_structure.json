@@ -1,0 +1,92 @@
+{
+    "agent_name": "fourq",
+    "description": "The agent queries video URLs for frame and subtitle data, analyzes visuals and narratives for counts (e.g., max simultaneous species) or predictions (e.g., named scientists by inferred year), performs targeted web searches for contextual dates, and outputs formatted results (e.g., integer counts or name strings) without additional commentary.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "video URLs",
+            "subtitles",
+            "visual data"
+        ],
+        "preprocessing": [
+            "VideoAnalysisTool",
+            "SubtitleExtractor",
+            "ImageRecognitionAPI"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "VideoAnalysisTool",
+            "description": "Analyzes video frames to extract visual data and metadata for further processing.",
+            "type": "Vision"
+        },
+        {
+            "name": "SubtitleExtractor",
+            "description": "Extracts subtitle text from video files to provide narrative context for analysis.",
+            "type": "FileIO"
+        },
+        {
+            "name": "ImageRecognitionAPI",
+            "description": "Identifies and classifies objects within video frames to assist in visual analysis.",
+            "type": "Vision"
+        },
+        {
+            "name": "NaturalLanguageProcessingAPI",
+            "description": "Processes and analyzes textual data from subtitles to extract relevant information and insights.",
+            "type": "Text"
+        },
+        {
+            "name": "WebSearchTool",
+            "description": "Performs targeted web searches to retrieve contextual dates and additional information.",
+            "type": "Search"
+        },
+        {
+            "name": "DataFormatter",
+            "description": "Formats the output results into structured data (e.g., integer counts or name strings) for final presentation.",
+            "type": "Data"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

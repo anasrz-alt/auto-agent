@@ -1,0 +1,85 @@
+{
+    "agent_name": "fiveq",
+    "description": "The agent ingests file-based data (like audio MP3s for transcription and Boggle grids for word validation) and browses web-sourced dictionaries (e.g., raw GitHub text files). It executes Python code for puzzle solving (like recursive DFS for Boggle) and audio processing (like speech-to-text for identifying page numbers). The agent filters and validates against an exact dictionary, ensuring case-insensitive matches and excluding proper nouns if specified, outputting strictly formatted results such as the longest word or ascending comma-separated lists without extraneous text.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "file-based data",
+            "web-sourced dictionaries"
+        ],
+        "preprocessing": [
+            "speech-to-text",
+            "file parsing"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "FileIO",
+            "description": "Handles reading and writing of file-based data, including audio files and text documents.",
+            "type": "FileIO"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "Allows the agent to browse the web and access online dictionaries or resources for data extraction.",
+            "type": "Search"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python code for solving puzzles, processing data, and performing computations.",
+            "type": "Calculator"
+        },
+        {
+            "name": "AudioProcessor",
+            "description": "Processes audio data for transcription and extraction, converting speech to text.",
+            "type": "Audio"
+        },
+        {
+            "name": "DictionaryValidator",
+            "description": "Validates words against specified dictionaries, ensuring case-insensitive matches and filtering as needed.",
+            "type": "Validator"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "execution logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

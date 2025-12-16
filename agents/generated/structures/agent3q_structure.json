@@ -1,0 +1,90 @@
+{
+    "agent_name": "Agent3Q",
+    "description": "Agent3Q is designed to resolve multimedia and historical trivia queries by leveraging web searches and page browsing. It accesses various sources such as film synopses, YouTube video metadata/transcripts, and Wikipedia archives to provide precise details. The agent formats outputs according to specific instructions, prioritizing verified sources from August 2023.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "web pages",
+            "video metadata",
+            "transcripts",
+            "images"
+        ],
+        "preprocessing": [
+            "text extraction",
+            "metadata parsing",
+            "image analysis"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "web"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "SearchTool",
+            "description": "A tool that performs web searches to find relevant information based on user queries.",
+            "type": "Search"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool that allows the agent to browse web pages and extract information from them.",
+            "type": "Web"
+        },
+        {
+            "name": "YouTubeAPI",
+            "description": "An API that provides access to YouTube video metadata and transcripts for extracting relevant data.",
+            "type": "Video"
+        },
+        {
+            "name": "WikipediaAPI",
+            "description": "An API to access Wikipedia articles and archives for historical trivia and multimedia information.",
+            "type": "Knowledge"
+        },
+        {
+            "name": "TextParser",
+            "description": "A tool that formats and structures extracted text data according to specified output instructions.",
+            "type": "Text"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

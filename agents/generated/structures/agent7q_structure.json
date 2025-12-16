@@ -1,0 +1,65 @@
+{
+    "agent_name": "Agent7Q",
+    "description": "Agent7Q is designed to execute and analyze Python code provided in an attached file. It runs the code in a secure environment to determine the final numeric output, handling potential dependencies and parsing the code to extract the last computed or printed numerical value, returning it exactly as produced without modifications or assumptions beyond the code's logic.",
+    "framework_target": "langchain",
+    "architecture": "Sequential",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "file"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console"
+        ]
+    },
+    "communication": {
+        "input_format": "file",
+        "output_format": "text",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "FileIO",
+            "description": "A tool to handle file input and output operations, allowing the agent to read the Python code from the attached file.",
+            "type": "FileIO"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "A secure execution environment for running Python code, ensuring that the code is executed safely and that the final numeric output is captured accurately.",
+            "type": "Execution"
+        }
+    ],
+    "memory": {
+        "type": "Episodic",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "execution logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

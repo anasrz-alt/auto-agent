@@ -1,0 +1,98 @@
+{
+    "agent_name": "sixq",
+    "description": "The agent is designed to query web and PDF sources for targeted extractions such as volumes, mentions, settings, and times. It analyzes attached Excel files for counts and comparisons, cross-verifies multi-paper overlaps or census splits with calculations, and delivers formatted results adhering to specified units, orders, and exclusions.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "PDF",
+            "Excel",
+            "web"
+        ],
+        "preprocessing": [
+            "OCR",
+            "data cleaning"
+        ]
+    },
+    "reasoning": {
+        "strategy": "hybrid",
+        "knowledge_base": "RAG",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "email"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "SearchTool",
+            "description": "A tool for querying web sources to retrieve specific information based on user queries.",
+            "type": "Search"
+        },
+        {
+            "name": "PDFExtractor",
+            "description": "Extracts text and data from PDF documents for analysis and targeted extraction.",
+            "type": "FileIO"
+        },
+        {
+            "name": "ExcelAnalyzer",
+            "description": "Analyzes Excel files to perform counts, comparisons, and data extraction for further processing.",
+            "type": "FileIO"
+        },
+        {
+            "name": "DataComparer",
+            "description": "Compares datasets to identify overlaps, differences, and correlations between multiple sources.",
+            "type": "Calculator"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "Enables the agent to browse the web and gather information from online sources in real-time.",
+            "type": "Search"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python code for complex calculations and data manipulations as required by the agent's tasks.",
+            "type": "Calculator"
+        },
+        {
+            "name": "TextAnalyzer",
+            "description": "Analyzes and processes textual data to extract meaningful insights and perform sentiment analysis.",
+            "type": "Text"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "event-driven",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

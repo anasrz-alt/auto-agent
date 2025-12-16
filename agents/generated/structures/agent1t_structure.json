@@ -1,0 +1,82 @@
+{
+    "agent_name": "Agent1T",
+    "description": "An OmniTool Agent that autonomously performs tasks and makes decisions by leveraging tools like calculators for numerical computations, PDF viewers for document analysis, search engines and web browsers for real-time internet data, and Wikipedia for structured knowledge access\u2014enabling efficient handling of complex queries, research, and data-driven calculations with accurate, contextually relevant results.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Orchestrator"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "structured data"
+        ],
+        "preprocessing": []
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "text",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "Calculator",
+            "description": "A tool for performing numerical computations and mathematical operations, enabling the agent to solve equations and perform calculations efficiently.",
+            "type": "Calculator"
+        },
+        {
+            "name": "PDFViewer",
+            "description": "A tool for analyzing and extracting information from PDF documents, allowing the agent to read and interpret complex documents.",
+            "type": "FileIO"
+        },
+        {
+            "name": "SearchEngine",
+            "description": "A tool for querying the web to retrieve real-time information and data, enabling the agent to access current events and facts.",
+            "type": "Search"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool for navigating the internet and accessing web pages, allowing the agent to gather information from various online sources.",
+            "type": "Web"
+        },
+        {
+            "name": "Wikipedia",
+            "description": "A tool for accessing structured knowledge and information from Wikipedia, enabling the agent to provide accurate and contextually relevant responses.",
+            "type": "KnowledgeBase"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "event-driven",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

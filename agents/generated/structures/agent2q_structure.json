@@ -1,0 +1,90 @@
+{
+    "agent_name": "Agent2Q",
+    "description": "Agent2Q is designed to ingest and analyze file-based data (such as Excel and PDB files) and web-sourced information (like Wikipedia and scientific papers). It utilizes Python and Biopython for data parsing and computations, including calculating distances, velocities, and percentages. The agent can filter and aggregate data based on specific criteria, such as beak lengths and food categories, and outputs formatted numerical results with the required precision and units.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "file-based data",
+            "web-sourced information"
+        ],
+        "preprocessing": [
+            "data parsing",
+            "data cleaning"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "text",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "FileIO",
+            "description": "Handles reading and writing of file-based data, such as Excel and PDB files, allowing the agent to ingest and output data in various formats.",
+            "type": "FileIO"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "Enables the agent to browse the web for information, including scientific papers and Wikipedia articles, to gather relevant data.",
+            "type": "Search"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python and Biopython code for data parsing and computations, such as calculating distances and velocities.",
+            "type": "Calculator"
+        },
+        {
+            "name": "DataParser",
+            "description": "Parses ingested data to extract relevant information and transform it into a usable format for analysis.",
+            "type": "DataParser"
+        },
+        {
+            "name": "DataAggregator",
+            "description": "Aggregates and filters data based on specified criteria, allowing for focused analysis of specific data subsets.",
+            "type": "DataAggregator"
+        },
+        {
+            "name": "ResultFormatter",
+            "description": "Formats the numerical results with the required precision and units for clear output presentation.",
+            "type": "Formatter"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

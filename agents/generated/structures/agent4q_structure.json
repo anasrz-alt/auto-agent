@@ -1,0 +1,86 @@
+{
+    "agent_name": "Agent4Q",
+    "description": "Agent4Q is designed to analyze video content by extracting frame and subtitle data, assessing visuals and narratives for specific counts and predictions, conducting targeted web searches for contextual information, and delivering results in a structured format without additional commentary.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Executor"
+    },
+    "perception": {
+        "inputs": [
+            "video URLs",
+            "text data"
+        ],
+        "preprocessing": [
+            "VideoAnalysisTool",
+            "SubtitleExtractor",
+            "ImageRecognitionAPI"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API"
+        ]
+    },
+    "communication": {
+        "input_format": "API message",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "VideoAnalysisTool",
+            "description": "Analyzes video frames to extract visual data and key metrics such as counts of objects or scenes.",
+            "type": "Vision"
+        },
+        {
+            "name": "SubtitleExtractor",
+            "description": "Extracts subtitles from video files, allowing for textual analysis of the narrative content.",
+            "type": "Text"
+        },
+        {
+            "name": "ImageRecognitionAPI",
+            "description": "Identifies and classifies objects within video frames, providing insights into the content.",
+            "type": "Vision"
+        },
+        {
+            "name": "WebSearchTool",
+            "description": "Performs targeted web searches to find contextual information, such as dates or relevant scientific data.",
+            "type": "Search"
+        },
+        {
+            "name": "DataFormatter",
+            "description": "Formats the output data into structured results, ensuring clarity and consistency in the presentation.",
+            "type": "Data"
+        }
+    ],
+    "memory": {
+        "type": "Episodic",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "analysis logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

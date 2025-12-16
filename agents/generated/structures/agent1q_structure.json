@@ -1,0 +1,99 @@
+{
+    "agent_name": "Agent1Q",
+    "description": "Agent1Q is designed to perform targeted extractions from web and PDF sources, analyze attached Excel files for counts and comparisons, and cross-verify multi-paper overlaps or census splits. It delivers formatted results according to specified units, orders, and exclusions, ensuring accuracy and relevance in its outputs.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Reasoner"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "PDF",
+            "Excel",
+            "web"
+        ],
+        "preprocessing": [
+            "OCR",
+            "data parsing",
+            "text normalization"
+        ]
+    },
+    "reasoning": {
+        "strategy": "neural",
+        "knowledge_base": "embedding store",
+        "planner": "goal graph"
+    },
+    "action": {
+        "execution_mode": "synchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "structured JSON"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "SearchTool",
+            "description": "A tool for querying web sources to retrieve relevant information based on user-defined criteria.",
+            "type": "Search"
+        },
+        {
+            "name": "PDFExtractor",
+            "description": "Extracts specific data points from PDF documents, such as volumes, mentions, and settings.",
+            "type": "FileIO"
+        },
+        {
+            "name": "ExcelAnalyzer",
+            "description": "Analyzes Excel files for counts and comparisons, such as book availability and accommodation suitability.",
+            "type": "Calculator"
+        },
+        {
+            "name": "DataComparer",
+            "description": "Compares datasets to identify overlaps or differences, particularly in multi-paper contexts.",
+            "type": "Calculator"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "A tool for navigating and retrieving information from web pages in real-time.",
+            "type": "Search"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python code for complex calculations and data processing tasks.",
+            "type": "Calculator"
+        },
+        {
+            "name": "DataFormatter",
+            "description": "Formats the results according to specified units, orders, and exclusions for clear presentation.",
+            "type": "Formatter"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}

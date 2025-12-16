@@ -1,0 +1,99 @@
+{
+    "agent_name": "Agent6Q",
+    "description": "Agent6Q is designed to query web and PDF sources for targeted extractions such as volumes, mentions, settings, and times. It analyzes attached Excel files for counts and comparisons regarding book availability, accommodation suitability, and reference mappings. Additionally, it cross-verifies multi-paper overlaps or census splits with calculations, delivering formatted results in specified units, orders, and exclusions.",
+    "framework_target": "langchain",
+    "architecture": "ReAct",
+    "core_model": {
+        "type": "LLM",
+        "name": "openai/gpt-4o",
+        "role": "Orchestrator"
+    },
+    "perception": {
+        "inputs": [
+            "text",
+            "PDF documents",
+            "Excel files",
+            "web data"
+        ],
+        "preprocessing": [
+            "OCR",
+            "data parsing",
+            "text normalization"
+        ]
+    },
+    "reasoning": {
+        "strategy": "hybrid",
+        "knowledge_base": "RAG",
+        "planner": "task decomposition"
+    },
+    "action": {
+        "execution_mode": "asynchronous",
+        "output_channels": [
+            "console",
+            "API",
+            "structured report"
+        ]
+    },
+    "communication": {
+        "input_format": "chat",
+        "output_format": "structured JSON",
+        "multi_agent_protocol": "message passing"
+    },
+    "tools": [
+        {
+            "name": "SearchTool",
+            "description": "A tool for querying web sources to retrieve relevant information based on user queries.",
+            "type": "Search"
+        },
+        {
+            "name": "PDFExtractor",
+            "description": "Extracts text and relevant data from PDF documents for analysis and targeted extractions.",
+            "type": "FileIO"
+        },
+        {
+            "name": "ExcelAnalyzer",
+            "description": "Analyzes Excel files to perform counts and comparisons of data such as book availability and accommodation suitability.",
+            "type": "FileIO"
+        },
+        {
+            "name": "DataComparer",
+            "description": "Compares datasets to identify overlaps, differences, and other relationships, particularly in census data.",
+            "type": "Calculator"
+        },
+        {
+            "name": "WebBrowser",
+            "description": "Interacts with web pages to gather information and perform actions based on user input.",
+            "type": "Web"
+        },
+        {
+            "name": "PythonExecutor",
+            "description": "Executes Python code for complex calculations and data manipulations as required by the agent's tasks.",
+            "type": "Calculator"
+        },
+        {
+            "name": "TextAnalyzer",
+            "description": "Analyzes and processes text data to extract insights and relevant information from various sources.",
+            "type": "Text"
+        }
+    ],
+    "memory": {
+        "type": "Conversational",
+        "scope": "ShortTerm",
+        "storage": "InMemory"
+    },
+    "learning": {
+        "method": "feedback-driven",
+        "data_sources": [
+            "user feedback",
+            "interaction logs"
+        ]
+    },
+    "control_orchestration": {
+        "controller_type": "step-based loop",
+        "coordination": "sequential"
+    },
+    "environment": {
+        "type": "digital",
+        "state_representation": "JSON"
+    }
+}
