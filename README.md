@@ -1,4 +1,4 @@
-# The <NAME> Framework: Automated and Reliable LLM Agent Generation
+# Autogent: Automated and Reliable LLM Agent Generation
 
 Recent work has explored the use of Large Language Models (LLMs) for software engineering and, more recently, for the automatic construction of agents. However, methods based on manual prompting, zero-shot generation, or one-shot examples often fail to produce functional agents. Common failure modes include:
 
