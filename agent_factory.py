@@ -285,7 +285,7 @@ def llm_select_best_model_by_dataset(child_repo_path: str, description=None) -> 
     subprocess.run([sys.executable, script_path], check=True)
     csv_files = glob.glob(os.path.join(child_repo_path, "data", "leaderboard*.csv"))
     if not csv_files:
-        raise FileNotFoundError("No leaderboard CSV files found in /data/")
+        raise FileNotFoundError("❌ No leaderboard CSV files found in /data/")
     df = pd.read_csv(csv_files[0])
     dataset_cols = [
         c for c in df.columns
@@ -321,7 +321,7 @@ def llm_select_best_model_by_dataset(child_repo_path: str, description=None) -> 
         )
         content = result.content[0].text.strip()
     else:
-        print("No LLM key found. Using top dataset column heuristically.")
+        print("⚠️ No LLM key found. Using top dataset column heuristically.")
         content = [dataset_cols[0]]
     try:
        relevant_cols = safe_parse_list(content, dataset_cols)
@@ -390,7 +390,7 @@ def llm_determine_tools(description: str) -> List[str]:
         )
         content = response.content[0].text
     else:
-        print("No LLM API key found. Using mock logic instead.")
+        print("⚠️ No LLM API key found. Using mock logic instead.")
         if "data" in description.lower():
             return ["PandasTool", "PlottingTool"]
         elif "web" in description.lower():
@@ -408,7 +408,7 @@ def llm_determine_tools(description: str) -> List[str]:
         else:
             return []
     except Exception as e:
-        print(f"Failed to parse LLM output, falling back. Error: {e}")
+        print(f"⚠️ Failed to parse LLM output, falling back. Error: {e}")
         print("Raw content:", content)
         return ["SearchTool"]
 def llm_write_codeql_query(required_tools: List[str]) -> str:
@@ -455,7 +455,7 @@ def llm_generate_feature_values(description: str) -> Dict[str, str]:
             )
             content = response.content[0].text
         else:
-            print("No LLM API key found. Using mock standardization.")
+            print("⚠️ No LLM API key found. Using mock standardization.")
             return {
                 "Retrieval_Standardized": "RAG" if "retrieval" in description.lower() else "(Not Specified)",
                 "Persistence_Standardized": "LTM" if "long" in description.lower() else "STM",
@@ -482,7 +482,7 @@ def llm_generate_feature_values(description: str) -> Dict[str, str]:
                 result[key] = val
         return result
     except Exception as e:
-        print(f"Error in llm_generate_feature_values: {e}")
+        print(f"⚠️ Error in llm_generate_feature_values: {e}")
         print("Raw content:", content)
         return {k: "(Not Specified)" for k in allowed_values.keys()}
 def convert_to_boolean_features(std_features: Dict[str, str]) -> Dict[str, bool]:
@@ -533,7 +533,7 @@ def llm_generate_tool_code(tool_name: str, description: str, mode: str = "tool_f
         )
         content = response.content[0].text
     else:
-        print("No valid LLM API key found — using mock tool implementation.")
+        print("⚠️ No valid LLM API key found — using mock tool implementation.")
         func_code = (
             f"def {func_name}(query: str) -> str:\n"
             f"    return f'Mock output for {tool_name} with input: {{query}}'"
@@ -553,7 +553,7 @@ def llm_generate_tool_code(tool_name: str, description: str, mode: str = "tool_f
                 cleaned = cleaned[len("python"):].strip()
         func_code = cleaned
     except Exception as e:
-        print(f"Failed to clean LLM output: {e}")
+        print(f"⚠️ Failed to clean LLM output: {e}")
         func_code = (
             f"def {func_name}(query: str) -> str:\n"
             f"    return f'Generated output for {tool_name} with input: {{query}}'"
@@ -671,7 +671,7 @@ def llm_generate_feature_values(description: str) -> Dict[str, str]:
             )
             content = response.content[0].text
         else:
-            print("No LLM API key found. Using mock standardization.")
+            print("⚠️ No LLM API key found. Using mock standardization.")
             return {
                 "Retrieval_Standardized": "RAG" if "retrieval" in description.lower() else "(Not Specified)",
                 "Persistence_Standardized": "LTM" if "long" in description.lower() else "STM",
@@ -698,7 +698,7 @@ def llm_generate_feature_values(description: str) -> Dict[str, str]:
                 result[key] = val
         return result
     except Exception as e:
-        print(f"Error in llm_generate_feature_values: {e}")
+        print(f"⚠️ Error in llm_generate_feature_values: {e}")
         print("Raw content:", content)
         return {k: "(Not Specified)" for k in allowed_values.keys()}
 def step_4_and_5_find_or_create_tools(required_tools: List[str], agent_structure: Dict[str, Any]) -> List[Dict[str, str]]:
@@ -721,14 +721,14 @@ def step_4_and_5_find_or_create_tools(required_tools: List[str], agent_structure
         try:
             codeql_results = query_codeql_database(codeql_query)
         except Exception as e:
-            print(f"CodeQL query failed for {tool_name}: {e}")
+            print(f"⚠️ CodeQL query failed for {tool_name}: {e}")
         if codeql_results:
             best_match = codeql_results[0]
             func_name = best_match.get("f.getName()", f"{tool_name.lower()}_func")
             func_code = best_match.get("source", f"def {func_name}(query: str):\n    pass")
-            print(f"Found existing tool for '{tool_name}' in CodeQL DB.")
+            print(f"✅ Found existing tool for '{tool_name}' in CodeQL DB.")
         else:
-            print(f"No CodeQL match found for '{tool_name}', generating new tool with LLM...")
+            print(f"⚙️ No CodeQL match found for '{tool_name}', generating new tool with LLM...")
             new_tool_data = llm_generate_tool_code(tool_name, description)
             func_name = new_tool_data["func_name"]
             func_code = new_tool_data["func_code"]
@@ -915,7 +915,7 @@ def llm_generate_agent_structure(agent_name: str, description: str, framework: s
         )
         content = response.content[0].text
     else:
-        print("No LLM API key found. Using mock Agent-IR logic.")
+        print("⚠️ No LLM API key found. Using mock Agent-IR logic.")
         return {
             "agent_name": agent_name,
             "description": description,
@@ -934,17 +934,17 @@ def llm_generate_agent_structure(agent_name: str, description: str, framework: s
         file_path = os.path.join(structure_dir, f"{agent_name.lower()}_structure.json")
         with open(file_path, "w") as f:
             json.dump(parsed_structure, f, indent=4)
-        print(f"LLM-Generated Agent structure (Agent-IR) saved to: {file_path}")
+        print(f"✅ LLM-Generated Agent structure (Agent-IR) saved to: {file_path}")
         global AGENT_STRUCTURE
         AGENT_STRUCTURE = parsed_structure
         return parsed_structure
     except Exception as e:
-        print(f"Failed to parse LLM Agent-IR output, falling back to mock structure. Error: {e}")
+        print(f"⚠️ Failed to parse LLM Agent-IR output, falling back to mock structure. Error: {e}")
         return llm_generate_agent_structure(agent_name, description, framework, required_tools) 
 def step_6_create_agent(framework: str, template_path: str, tools: List[Dict[str, str]], agent_name: str, description: str, memory_type: str='') -> str:
     model_name = llm_select_model(framework)
     if "openai" in model_name.lower() and not TOKEN_MANAGER.check_token('openai'):
-        print(f"WARNING: Model '{model_name}' requires OPENAI_API_KEY, but it's not set. Proceeding with dummy model name.")
+        print(f"⚠️ WARNING: Model '{model_name}' requires OPENAI_API_KEY, but it's not set. Proceeding with dummy model name.")
     with open(template_path, "r") as f:
         template_content = f.read()
     memory_context = f"Previous agent issues or lessons: {MEMORY['history']}"
@@ -980,7 +980,7 @@ def step_6_create_agent(framework: str, template_path: str, tools: List[Dict[str
         )
         content = response.content[0].text
     else:
-        print("No valid LLM API key found — using static fallback agent.")
+        print("⚠️ No valid LLM API key found — using static fallback agent.")
         code = render_template(template_path, {
             "agent_name": agent_name,
             "tools": tools,
@@ -996,7 +996,7 @@ def step_6_create_agent(framework: str, template_path: str, tools: List[Dict[str
         if cleaned_code.startswith("python"):
             cleaned_code = cleaned_code[len("python"):].strip()
     agent_path = save_agent(cleaned_code, framework, agent_name)
-    print(f"Agent created with {framework} framework at: {agent_path}")
+    print(f"✅ Agent created with {framework} framework at: {agent_path}")
     return agent_path
 def step_7_and_8_test_and_refine(agent_path: str, user_query: str, framework: str, agent_name: str, description: str, tools: List[Dict[str, str]]) -> str:
     agent_output = mock_run_agent(agent_path, user_query)
@@ -1021,10 +1021,10 @@ def run_agent_with_feedback(agent_path: str, task_description: str, user_query: 
             text=True,
             check=True
         )
-        print("Agent executed successfully:\n", result.stdout)
+        print("✅ Agent executed successfully:\n", result.stdout)
     except subprocess.CalledProcessError as e:
         error_message = e.stderr or e.stdout or str(e)
-        print("Agent execution failed. Captured error:\n", error_message)
+        print("❌ Agent execution failed. Captured error:\n", error_message)
         prompt = f
         if TOKEN_MANAGER.check_token("openai"):
             import openai
@@ -1053,7 +1053,7 @@ def run_agent_with_feedback(agent_path: str, task_description: str, user_query: 
             )
             advice = result.content[0].text.strip()
         else:
-            advice = "No LLM API key found. Cannot provide feedback."
+            advice = "⚠️ No LLM API key found. Cannot provide feedback."
         print("\n--- LLM Feedback / Debugging Advice ---\n")
         print(advice)
 def autoagent_orchestrator(task_description: str, agent_name: str, user_query: str) -> str:
@@ -1070,26 +1070,27 @@ def autoagent_orchestrator(task_description: str, agent_name: str, user_query: s
     agent_structure = llm_generate_agent_structure(agent_name, task_description, framework, required_tools)
     best_model = llm_select_best_model_by_dataset("./artificial-analysis-leaderboards-scraper", description=task_description)
     print("Best Model:", best_model)
+    result = evaluate_rules(rules, features, allow_closest=True)
+    print("Match Type:", result["match_type"])
+    print("Max Support:", result["max_support"])
+    print("Best Rule IDs:", [r["RID"] for r in result["rules"]])
+    print("Predicted Memory Type:", result["predicted_memory"])
     tools = step_4_and_5_find_or_create_tools(required_tools, agent_structure)
     agent_path = step_6_create_agent(framework, template_path, tools, agent_name, task_description, memory_type='Episodic')
     final_agent_path = step_7_and_8_test_and_refine(agent_path, user_query, framework, agent_name, task_description, tools)
     return final_agent_path
 if __name__ == "__main__":
     if TOKEN_MANAGER.check_token('openai'):
-        print("OpenAI API Key found. Real LLM calls can be implemented.")
+        print("✅ OpenAI API Key found. Real LLM calls can be implemented.")
     else:
-        print("OpenAI API Key not found. Using mock/fallback model selection.")
-        
+        print("⚠️ OpenAI API Key not found. Using mock/fallback model selection.")
     if TOKEN_MANAGER.check_token('gemini'):
-        print("Gemini API Key found.")
-        
+        print("✅ Gemini API Key found.")
     print("\n--- Autoagent Framework Startup ---")
     task_description = input("Enter task description (e.g., data analysis): ")
     agent_name = input("Enter agent name (e.g., AnalystBot): ")
     test_query_1 = input("Enter test query (e.g., process sales data or give a wrong answer): ")
-    
     final_path_1 = autoagent_orchestrator(task_description, agent_name, test_query_1)
     run_agent_with_feedback(final_path_1, task_description, test_query_1)
-
     print(f"\nFinal Agent Path after potential refinement: {final_path_1}")
     print(f"Current Memory History ({len(MEMORY['history'])} entries): {MEMORY['history'][0]['mistake'] if MEMORY['history'] else 'None'}")
