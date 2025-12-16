@@ -1,0 +1,23 @@
+You are a senior AI engineer tasked with designing a comprehensive AI agent based on a detailed user description. Your deliverables include a full system architecture, component modules, and a complete, functional implementation code.
+User Description:
+Framework: Langchain
+
+Requirements:
+Analyze the user-provided description and optional framework.
+Develop a detailed system architecture with modules, tools, and communication pathways.
+Create all necessary components, following best software engineering and AI development practices.
+Write clean, well-documented, and secure code in the specified framework or, if not specified, in the most suitable and popular programming language (e.g., Python).
+Provide example usage demonstrating how to instantiate and utilize the agent.
+Components:
+Modular design approach with clear separation of concerns.
+Incorporate necessary AI models, APIs, or tools.
+Ensure extensibility for future enhancements.
+Implementation Details:
+Follow SOLID principles and design patterns.
+Include unit tests and validation procedures.
+Document setup, dependencies, and usage instructions.
+Output:
+A complete agent setup ready to deploy or integrate into larger systems.
+Fully functioning code base with all dependencies.
+Practical example scripts.
+Please do not include explanations, only the final design and code.
