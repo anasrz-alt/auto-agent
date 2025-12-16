@@ -42,7 +42,7 @@ conda install --file requirements.yml
 
 Create a `.env` file in the project root directory and add the required API keys. For example:
 ```
-API_KEY=your_api_key_here
+OPENAI_API_KEY=your_api_key_here
 ```
 ### Step 3: Run the Application
 
