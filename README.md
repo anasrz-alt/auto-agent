@@ -35,8 +35,7 @@ Create a Conda environment and install the required packages:
 
 ```
 conda create --name <env_name> python=3.x
-conda activate <env_name>
-conda install --file requirements.yml
+conda env create -f environment.yml
 ```
 ### Step 2: Configure API Keys
 
