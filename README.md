@@ -25,7 +25,32 @@ The **<NAME> Framework** is an end-to-end system for generating dependable LLM-b
 
 - Ensuring consistent and correct integration of tools  
 - Aligning generated agent logic with executable behavior  
-- Recommending memory and model configurations that match task requirements  
+- Recommending memory and model configurations that match task requirements
+
+## Setup
+
+### Step 1: Create the Environment and Install Dependencies
+
+Create a Conda environment and install the required packages:
+
+```
+conda create --name <env_name> python=3.x
+conda activate <env_name>
+conda install --file requirements.yml
+```
+### Step 2: Configure API Keys
+
+Create a `.env` file in the project root directory and add the required API keys. For example:
+```
+API_KEY=your_api_key_here
+```
+### Step 3: Run the Application
+
+Execute the following command to run the project:
+```
+python autoagent.py
+```
+
 
 ## Contributions
 
