@@ -1,5 +1,17 @@
 # Autogent: From Task Descriptions to LLM Agents
 
+## Table of Contents
+
+- [Introduction & Motivation](#introduction--motivation)
+- [Overview](#overview)
+- [Agent Generation Workflow](#agent-generation-workflow)
+- [Key Challenges Addressed](#key-challenges-addressed)
+- [Setup](#setup)
+  - [Create the Environment and Install Dependencies](#step-1-create-the-environment-and-install-dependencies)
+  - [Configure API Keys](#step-2-configure-api-keys)
+  - [Run the Application](#step-3-run-the-application)
+- [Contributions](#contributions)
+
 Recent work has explored the use of Large Language Models (LLMs) for software engineering and, more recently, for the automatic construction of agents. However, methods based on manual prompting, zero-shot generation, or one-shot examples often fail to produce functional agents. Common failure modes include:
 
 - Mismatched framework or model versions  
