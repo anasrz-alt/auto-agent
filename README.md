@@ -1,4 +1,5 @@
-# Autogent: From Task Descriptions to LLM Agents
+# Autogent: Generating LLM Agents from Natural Language Description
+
 
 ## Table of Contents
 
